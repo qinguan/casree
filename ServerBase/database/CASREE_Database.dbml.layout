@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="CASREE_Database">
+  <DataContextMoniker Name="/CASREE_DatabaseDataContext" />
+  <nestedChildShapes>
+    <classShape Id="35cc51ab-c570-4fcb-bac8-049755edb474" absoluteBounds="0.75, 1, 2, 1.3805261230468753">
+      <DataClassMoniker Name="/CASREE_DatabaseDataContext/user" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6a60adb2-e534-4502-b348-4b354fd01654" absoluteBounds="0.765, 1.46, 1.9700000000000002, 0.820526123046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d8c7d5e8-ba28-4f1f-9394-c044d8176931" absoluteBounds="0.75, 3.875, 2, 1.5715458170572916">
+      <DataClassMoniker Name="/CASREE_DatabaseDataContext/ProjectInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="44f88c06-0b04-4e7c-b286-1683c135a547" absoluteBounds="0.765, 4.335, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="00a7ce27-9336-4806-9b4c-e47a9a809d62" absoluteBounds="3.5, 0.875, 2, 1.5715458170572916">
+      <DataClassMoniker Name="/CASREE_DatabaseDataContext/permission" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ffea4cf2-a30e-4f37-a783-0d9baeddd153" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 4.66077290852865); (4.5 : 4.66077290852865); (4.5 : 2.44654581705729)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CASREE_DatabaseDataContext/ProjectInfo/ProjectInfo_permission" />
+      <nodes>
+        <classShapeMoniker Id="d8c7d5e8-ba28-4f1f-9394-c044d8176931" />
+        <classShapeMoniker Id="00a7ce27-9336-4806-9b4c-e47a9a809d62" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.69026306152344); (3.5 : 1.69026306152344)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CASREE_DatabaseDataContext/user/user_permission" />
+      <nodes>
+        <classShapeMoniker Id="35cc51ab-c570-4fcb-bac8-049755edb474" />
+        <classShapeMoniker Id="00a7ce27-9336-4806-9b4c-e47a9a809d62" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CASREE_SERVER_DATABASE" Class="CASREE_DatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=XUGUOJUN-PC\SQLEXPRESS;Initial Catalog=CASREE_SERVER_DATABASE;Integrated Security=True" SettingsObjectName="ServerBase.Properties.Settings" SettingsPropertyName="CASREE_SERVER_DATABASEConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[user]" Member="users">
+    <Type Name="user">
+      <Column Name="UserName" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="user_permission" Member="permissions" ThisKey="UserName" OtherKey="UserName" Type="permission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProjectInfo" Member="ProjectInfos">
+    <Type Name="ProjectInfo">
+      <Column Name="ProjectID" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProgramID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectDescription" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="ProjectInfo_permission" Member="permissions" ThisKey="ProjectID" OtherKey="ProjectID" Type="permission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.permission" Member="permissions">
+    <Type Name="permission">
+      <Column Name="PermissionID" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PermissionLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ProjectInfo_permission" Member="ProjectInfo" ThisKey="ProjectID" OtherKey="ProjectID" Type="ProjectInfo" IsForeignKey="true" />
+      <Association Name="user_permission" Member="user" ThisKey="UserName" OtherKey="UserName" Type="user" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>
