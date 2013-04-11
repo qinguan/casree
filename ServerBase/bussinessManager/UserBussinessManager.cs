@@ -58,7 +58,7 @@ namespace ServerBase
 
                 Database.insertUser(name, passwd, groupid);
 
-                out_message.MessageBody = Encoding.Unicode.GetBytes("succeed");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SUCCEED);
 
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -68,7 +68,7 @@ namespace ServerBase
             else
             {  //验证未通过
                 Console.WriteLine("User has existed!");
-                out_message.MessageBody = Encoding.Unicode.GetBytes("existed");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_EXISTED);
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                 return false;
@@ -114,7 +114,7 @@ namespace ServerBase
             Boolean isUserExisted = UserExisted(name);
             if (!isUserExisted)//消息体需要根据数据库检索结果//同时初始化permission
             {//用户不存在            
-                out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
 
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);

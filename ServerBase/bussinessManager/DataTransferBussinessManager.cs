@@ -42,13 +42,13 @@ namespace ServerBase
             if (Directory.Exists(solutionProjectDirectory) == true // 文件夹存在性
                 && Directory.GetFiles(solutionProjectDirectory).Count() != 0)//客户端需要的xml描述文件存在性
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("allow"); ;
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_ALLOW);
                 isAck = true;
             }
             else
             {
                 Console.WriteLine(projectName + " is not exist.");
-                out_message.MessageBody = Encoding.Unicode.GetBytes("deny"); ;
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_DENY);
                 isAck = false;
             }
             dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -101,7 +101,7 @@ namespace ServerBase
 
                     //文件读取结束
                     out_message = new Message();
-                    out_message.MessageBody = Encoding.Unicode.GetBytes("#");//该消息体最终被舍弃
+                    out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SHARP);//该消息体最终被舍弃 "#"
                     out_message.Command = Message.CommandHeader.SendXml;
                     out_message.MessageFlag = Message.MessageFlagHeader.FileEnd;
                     dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -110,7 +110,7 @@ namespace ServerBase
                 //读取客户端反馈，以判断客户端是否正确接收文件
                 Message in_message = Message.Parse(dataStream);
                 if (in_message.Command == Message.CommandHeader.ReceivedXml
-                    && Encoding.Unicode.GetString(in_message.MessageBody).CompareTo("yes") == 0)
+                    && Encoding.Unicode.GetString(in_message.MessageBody).CompareTo(Constants.M_YES) == 0)
                 {
                     return true;
                 }
@@ -142,12 +142,12 @@ namespace ServerBase
             {
                 case "fta":
                     {
-                        destinationprojectype = "fmea";
+                        destinationprojectype = Constants.P_FMEA;
                         break;
                     }
                 case "fmea":
                     {
-                        destinationprojectype = "fta";
+                        destinationprojectype = Constants.P_FTA;
                         break;
                     }
             }
@@ -197,7 +197,7 @@ namespace ServerBase
 
                     //文件读取结束
                     out_message = new Message();
-                    out_message.MessageBody = Encoding.Unicode.GetBytes("#");//该消息体最终被舍弃
+                    out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SHARP);//该消息体最终被舍弃
                     out_message.Command = Message.CommandHeader.SendXml;
                     out_message.MessageFlag = Message.MessageFlagHeader.FileEnd;
                     dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -206,7 +206,7 @@ namespace ServerBase
                 //读取客户端反馈，以判断客户端是否正确接收文件
                 Message in_message = Message.Parse(dataStream);
                 if (in_message.Command == Message.CommandHeader.ReceivedXml
-                    && Encoding.Unicode.GetString(in_message.MessageBody).CompareTo("yes") == 0)
+                    && Encoding.Unicode.GetString(in_message.MessageBody).CompareTo(Constants.M_YES) == 0)
                 {
                     return true;
                 }
@@ -234,12 +234,12 @@ namespace ServerBase
 
             if (true)//检查permission
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("allow");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_ALLOW);
                 isAck = true;
             }
             else
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("deny");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_DENY);
                 isAck = false;
             }
             dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -307,7 +307,7 @@ namespace ServerBase
                         //发送成功接收的确认数据包
                         out_message = new Message();
                         out_message.Command = Message.CommandHeader.ReceivedXml;
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("yes");
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_YES);
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                         XMLtoDB conv = new XMLtoDB(projectNameAddTimestampWithRelativePath);//直接将xml解析并存入数据库
 
@@ -323,10 +323,10 @@ namespace ServerBase
                             switch (sourcetype)
                             {
                                 case "fta":
-                                    targettype = "fmea";
+                                    targettype = Constants.P_FTA;
                                     break;
                                 case "fmea":
-                                    targettype = "fta";
+                                    targettype = Constants.P_FMEA;
                                     break;
                             }
                             string destinationprjid = string.Empty;
@@ -353,7 +353,7 @@ namespace ServerBase
                         //发送接收失败的确认数据包
                         out_message = new Message();
                         out_message.Command = Message.CommandHeader.ReceivedXml;
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("no");
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NO);
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                         Console.WriteLine("The xml file trasfer failed...");
                         //若存在接受不全的文件，删除
@@ -398,13 +398,13 @@ namespace ServerBase
             if (Directory.GetFiles(solutionProjectDirectory).Count() == 0
                 || !File.Exists(solutionProjectDirectory + "\\" + documentName))//客户端需要的当前服务器无法提供
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("deny");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_DENY);
                 Console.WriteLine(documentName + " is not exist.");
                 isAck = false;
             }
             else
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("allow"); ;
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_ALLOW); 
                 isAck = true;
             }
             dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -496,13 +496,13 @@ namespace ServerBase
                         out_message.Command = Message.CommandHeader.SendDocument;
                         out_message.MessageFlag = Message.MessageFlagHeader.FileEnd;
                         //out_message.MessageBody = new byte[1];
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("#");//该消息体最终被舍弃
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SHARP);//该消息体最终被舍弃
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
 
                         //读取客户端反馈，以判断客户端是否正确接收文件
                         Message in_message = Message.Parse(dataStream);
                         if (in_message.Command == Message.CommandHeader.ReceivedDocument
-                            && Encoding.Unicode.GetString(in_message.MessageBody).CompareTo("yes") == 0)
+                            && Encoding.Unicode.GetString(in_message.MessageBody).CompareTo(Constants.M_YES) == 0)
                         {
                             return true;
                         }
@@ -536,12 +536,12 @@ namespace ServerBase
 
             if (true)//检查permission
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("allow");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_ALLOW);
                 isAck = true;
             }
             else
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("deny");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_DENY);
                 isAck = false;
             }
             dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -610,14 +610,14 @@ namespace ServerBase
                             //发送成功接收的确认数据包
                             out_message = new Message();
                             out_message.Command = Message.CommandHeader.ReceivedDocument;
-                            out_message.MessageBody = Encoding.Unicode.GetBytes("yes");
+                            out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_YES);
                             dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                             return true;
                         default:
                             //发送接收失败的确认数据包
                             out_message = new Message();
                             out_message.Command = Message.CommandHeader.ReceivedDocument;
-                            out_message.MessageBody = Encoding.Unicode.GetBytes("no");
+                            out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NO);
                             dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                             Console.WriteLine("The document file trasfer failed...");
                             //若存在接受不全的文件，删除

@@ -34,7 +34,7 @@ namespace ServerBase
             if (!isUserExisted)//消息体需要根据数据库检索结果//同时初始化permission
             {//用户不存在
                 Console.WriteLine("添加权限：User doesn't existed!");
-                out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                 return false;
@@ -44,7 +44,7 @@ namespace ServerBase
                 Boolean isPermissionExisted = PermissionExisted(name, projectid, permissionlevel);
                 if (isPermissionExisted)
                 {//权限已经存在
-                    out_message.MessageBody = Encoding.Unicode.GetBytes("existed");
+                    out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_EXISTED);
                     Console.WriteLine("添加权限：权限已经存在!");
                     //打包输出信息,将输出信息写入输出流
                     dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -55,7 +55,7 @@ namespace ServerBase
                     Console.WriteLine("添加权限：准备添加权限");
                     if (Database.insertPermission(name, projectid, permissionlevel))
                     {
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("succeed");
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SUCCEED);
                         Console.WriteLine("添加权限：" + name + " " + projectid + " " + permissionlevel.ToString() + "权限添加成功!");
                         //打包输出信息,将输出信息写入输出流
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -103,7 +103,7 @@ namespace ServerBase
             Boolean isUserExisted = UserBussinessManager.UserExisted(name);
             if (!isUserExisted)//消息体需要根据数据库检索结果//同时初始化permission
             {//用户不存在            
-                out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
 
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -114,7 +114,7 @@ namespace ServerBase
                 List<Permission> permissions = Database.queryPermission(name);
                 if (permissions == null)
                 {
-                    out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                    out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
 
                     //打包输出信息,将输出信息写入输出流
                     dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);

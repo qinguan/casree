@@ -17,7 +17,7 @@ namespace ServerBase
             if (adminclient == null)
             {
                 if (in_message.Command == Message.CommandHeader.PushXMLAck)
-                    if (Encoding.Unicode.GetString(in_message.MessageBody).CompareTo("yes") == 0)
+                    if (Encoding.Unicode.GetString(in_message.MessageBody).CompareTo(Constants.M_YES) == 0)
                     {
                         Console.WriteLine("Pushing successfully!");
                     }
@@ -33,16 +33,16 @@ namespace ServerBase
                 out_message.Command = Message.CommandHeader.PushXMLAck;
 
                 if (in_message.Command == Message.CommandHeader.PushXMLAck)
-                    if (Encoding.Unicode.GetString(in_message.MessageBody).CompareTo("yes") == 0)
+                    if (Encoding.Unicode.GetString(in_message.MessageBody).CompareTo(Constants.M_YES) == 0)
                     {
                         Console.WriteLine("Pushing successfully!");
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("succeed");  //发送成功，将消息送回调度者
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SUCCEED);  //发送成功，将消息送回调度者
                         //打包输出信息,将输出信息写入输出流
                         pushackStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                     }
                     else
                     {
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("fail");
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_FAIL);
                         //打包输出信息,将输出信息写入输出流
                         pushackStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                         Console.WriteLine("Pushing failed!");
@@ -67,7 +67,7 @@ namespace ServerBase
             List<ProjectInfo> solutions = Database.querySolution(solutionname); //检测项目是否存在
             if (solutions == null)
             {
-                out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
                 Console.WriteLine("Solution not existed!");
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -97,7 +97,7 @@ namespace ServerBase
                     ClientInfo destinationclient = ClientThreadManager.GetClient(destinationprjid);
                     if (destinationclient == null)   //检测目标客户端是否在线
                     {
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("offline");
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_OFFLINE);
                         Console.WriteLine("Destination client is offline!");
                         //打包输出信息,将输出信息写入输出流
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -131,13 +131,13 @@ namespace ServerBase
 
                             //文件读取结束
                             push_message = new Message();
-                            push_message.MessageBody = Encoding.Unicode.GetBytes("#");//该消息体最终被舍弃
+                            push_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SHARP);//该消息体最终被舍弃
                             push_message.Command = Message.CommandHeader.PushXML;
                             push_message.MessageFlag = Message.MessageFlagHeader.FileEnd;
                             pushdataStream.Write(push_message.ToBytes(), 0, push_message.MessageLength);
                             Console.WriteLine("Sending......Waiting for callback......");
                         }
-                        out_message.MessageBody = Encoding.Unicode.GetBytes("waiting");  //发送成功，但是尚未接到客户端回馈，将消息送回调度者
+                        out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_WAITING);  //发送成功，但是尚未接到客户端回馈，将消息送回调度者
                         //打包输出信息,将输出信息写入输出流
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
 
@@ -234,7 +234,7 @@ namespace ServerBase
 
                         //文件读取结束
                         push_message = new Message();
-                        push_message.MessageBody = Encoding.Unicode.GetBytes("#");//该消息体最终被舍弃
+                        push_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_SHARP);//该消息体最终被舍弃
                         push_message.Command = Message.CommandHeader.PushXML;
                         push_message.MessageFlag = Message.MessageFlagHeader.FileEnd;
                         pushdataStream.Write(push_message.ToBytes(), 0, push_message.MessageLength);

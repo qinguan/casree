@@ -132,7 +132,7 @@ namespace ServerBase
             else
             {  //验证未通过
                 Console.WriteLine("验证未通过");
-                out_message.MessageBody = Encoding.Unicode.GetBytes("deny_pw");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_DENY_PW);
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
                 return false;
@@ -165,7 +165,7 @@ namespace ServerBase
             Boolean isSolutionExisted = true;// UserExisted(name);
             if (!isSolutionExisted)//消息体需要根据数据库检索结果//同时初始化permission
             {//用户不存在            
-                out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
 
                 //打包输出信息,将输出信息写入输出流
                 dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
@@ -176,7 +176,7 @@ namespace ServerBase
                 List<ProjectInfo> solutions = Database.querySolution(name);
                 if (solutions == null)
                 {
-                    out_message.MessageBody = Encoding.Unicode.GetBytes("notexisted");
+                    out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_NOTEXISTED);
 
                     //打包输出信息,将输出信息写入输出流
                     dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
