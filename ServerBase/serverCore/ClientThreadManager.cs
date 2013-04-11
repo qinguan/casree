@@ -13,7 +13,7 @@ namespace ServerBase
     class ClientThreadManager
     {
         //当前连接的客户端列表,临界资源，加锁读写
-        private static Dictionary<string, ClientInfo> clientList = new Dictionary<string, ClientInfo>();
+        public static Dictionary<string, ClientInfo> clientList = new Dictionary<string, ClientInfo>();
 
         //定时处理函数委托
         public delegate void handleFunction(object source, ElapsedEventArgs e);

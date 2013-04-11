@@ -369,6 +369,17 @@ namespace ServerBase.database
             
             return projectinfos;
         }
+        public static String queryProgramIdByProjectId(string projectID)
+        {
+            var projectinfors = from projectinfo in CASREE_DatabaseCtx.ProjectInfos
+                                where projectinfo.ProjectID == projectID
+                                select projectinfo;
+            if (projectinfors.Count() == 0)
+            {
+                return null;
+            }
+            return projectinfors.First().ProgramID;
+        }
 
         public static Projectinfo queryProjectInfo(string projectID, string ProgramID)
         {

@@ -54,45 +54,47 @@ namespace ServerBase
                             ClientBusinessManager.Authenticate(dataStream,in_message,clientInfo);
                             break;
                         case Message.CommandHeader.AddUser:
-                            ClientBusinessManager.AddUser(dataStream, in_message, clientInfo);
+                            UserBussinessManager.AddUser(dataStream, in_message, clientInfo);
                             break;
                         case Message.CommandHeader.SearchUser:
-                            ClientBusinessManager.SearchUser(dataStream, in_message, clientInfo);
+                            UserBussinessManager.SearchUser(dataStream, in_message, clientInfo);
                             break;
                         case Message.CommandHeader.AddPermission:
-                            ClientBusinessManager.AddPermission(dataStream, in_message, clientInfo);
+                            PermissionBussinessManager.AddPermission(dataStream, in_message, clientInfo);
                             break;
                         case Message.CommandHeader.SearchPermission:
-                            ClientBusinessManager.SearchPermission(dataStream, in_message, clientInfo);
+                            PermissionBussinessManager.SearchPermission(dataStream, in_message, clientInfo);
                             break;
+                            
                         case Message.CommandHeader.SearchSolution:
-                            ClientBusinessManager.SearchSolution(dataStream, in_message, clientInfo);
+                            //ClientBusinessManager.SearchSolution(dataStream, in_message, clientInfo);
                             break;
+
                         case Message.CommandHeader.AddProject:
-                            ClientBusinessManager.AddProject(dataStream, in_message, clientInfo);
+                            ProjectBussinessManager.AddProject(dataStream, in_message, clientInfo);
                             break;
                         case Message.CommandHeader.SearchProject:
-                            ClientBusinessManager.SearchProject(dataStream,in_message,clientInfo);
+                            ProjectBussinessManager.SearchProject(dataStream,in_message,clientInfo);
                             break;
                         case Message.CommandHeader.DeleteProject:
-                            ClientBusinessManager.deleteProject(dataStream,in_message,clientInfo);
+                            ProjectBussinessManager.deleteProject(dataStream,in_message,clientInfo);
                             break;
                         case Message.CommandHeader.PushXML:
-                            ClientBusinessManager.PushXML(dataStream, in_message, clientInfo);
+                            PushBussinessManager.PushXML(dataStream, in_message, clientInfo);
                             break;
                         case Message.CommandHeader.PushXMLAck:
-                            ClientBusinessManager.PushXMLAck(dataStream, in_message, clientInfo);
+                            PushBussinessManager.PushXMLAck(dataStream, in_message, clientInfo);
                             break;
                         case Message.CommandHeader.Chat://测试
                             Chating(in_message);
                             break;
                         case Message.CommandHeader.GetXmlRequest:
                             //request from client ,server send xml to client
-                            if (ClientBusinessManager.SendAckToClientGetXmlRequest(dataStream, in_message))
+                            if (DataTransferBussinessManager.SendAckToClientGetXmlRequest(dataStream, in_message))
                             {
                                 Console.WriteLine(Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[0]+" "+
                                     Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1]);
-                                if (ClientBusinessManager.SendXml(dataStream,
+                                if (DataTransferBussinessManager.SendXml(dataStream,
                                     Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[0],
                                     Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1]))
                                 {
@@ -103,9 +105,9 @@ namespace ServerBase
                             break;
                         case Message.CommandHeader.SendXmlRequest:
                             //request from client , client send xml to server
-                            if (ClientBusinessManager.SendAckToClientSendXmlRequest(dataStream, in_message))
+                            if (DataTransferBussinessManager.SendAckToClientSendXmlRequest(dataStream, in_message))
                             {
-                                if (ClientBusinessManager.GetXml(dataStream))
+                                if (DataTransferBussinessManager.GetXml(dataStream))
                                 {
                                     Console.WriteLine("接受文件完成");
                                    
@@ -113,9 +115,9 @@ namespace ServerBase
                             }
                             break;
                         case Message.CommandHeader.GetDocumentRequest:
-                            if (ClientBusinessManager.SendAckToClientGetDocumentRequest(dataStream, in_message))
+                            if (DataTransferBussinessManager.SendAckToClientGetDocumentRequest(dataStream, in_message))
                             {
-                                if (ClientBusinessManager.SendDocument(dataStream,
+                                if (DataTransferBussinessManager.SendDocument(dataStream,
                                     Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[0],
                                     Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1],
                                     Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[2]))
@@ -126,9 +128,9 @@ namespace ServerBase
                             break;
                         case Message.CommandHeader.SendDocumentRequest:
                             //request from client 
-                            if (ClientBusinessManager.SendAckToClientSendDocumentRequest(dataStream, in_message))
+                            if (DataTransferBussinessManager.SendAckToClientSendDocumentRequest(dataStream, in_message))
                             {
-                                if (ClientBusinessManager.GetDocument(dataStream))
+                                if (DataTransferBussinessManager.GetDocument(dataStream))
                                 {
                                     Console.WriteLine("成功接受文档");
                                 }
