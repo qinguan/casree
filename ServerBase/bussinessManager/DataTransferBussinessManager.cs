@@ -301,51 +301,12 @@ namespace ServerBase
                         sw.Close();
                         fs.Close();
                         break;
-                    case Message.MessageFlagHeader.FileEnd://文件传送结束,需要判断第一个数据包直接跳到这项的 
+                    case Message.MessageFlagHeader.FileEnd://文件传送结束
                         //发送成功接收的确认数据包
                         out_message = new Message();
                         out_message.Command = Message.CommandHeader.ReceivedXml;
                         out_message.MessageBody = Encoding.Unicode.GetBytes(Constants.M_YES);
                         dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
-                        XMLtoDB conv = new XMLtoDB(projectNameAddTimestampWithRelativePath);//直接将xml解析并存入数据库
-
-                        //自动推送收到的文件到其它需要的客户端
-                        Message pushmessage = new Message();
-                        pushmessage.Command = Message.CommandHeader.PushXML;
-                        //读取定义的规则，需要扫描数据库或XML
-                        //暂时只加入fta与fmea
-                        string sourcetype = Database.queryTypeByProjectID(projectName);
-                        string targettype = string.Empty;
-                        if (sourcetype != null)
-                        {
-                            switch (sourcetype)
-                            {
-                                case "fta":
-                                    targettype = Constants.P_FTA;
-                                    break;
-                                case "fmea":
-                                    targettype = Constants.P_FMEA;
-                                    break;
-                            }
-                            string destinationprjid = string.Empty;
-                            if (!targettype.Equals(string.Empty))
-                            {
-                                destinationprjid = Database.queryProjectByType(solutionName, targettype).projectID;
-
-                                if (!destinationprjid.Equals(string.Empty))
-                                {
-                                    pushmessage.MessageBody = Encoding.Unicode.GetBytes(projectName + ":" + destinationprjid + ":" + solutionName);
-                                    PushBussinessManager.AutoPushXML(pushmessage);
-                                }
-                                else
-                                    Console.WriteLine("Auto push:Target project not existed!");
-                            }
-                            else
-                                Console.WriteLine("Auto push:No match type found!");
-                        }
-                        else
-                            Console.WriteLine("Auto push:Undefined project type！");
-
                         return true;
                     default:
                         //发送接收失败的确认数据包
