@@ -11,6 +11,28 @@ namespace ServerBase
 {
     class PushBussinessManager
     {
+        //更新推送
+        public static void ReminderPush(ClientInfo clientInfo, String message)
+        {
+            try
+            {
+                NetworkStream dataStream = clientInfo.client.GetStream();
+                Message push_message = new Message();
+
+                //生成推送消息
+                push_message.Command = Message.CommandHeader.ReminderAutoPush;
+                push_message.MessageBody = Encoding.Unicode.GetBytes(message);
+
+                //推送
+                dataStream.Write(push_message.ToBytes(), 0, push_message.MessageLength);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
         public static void PushXMLAck(NetworkStream dataStream, Message in_message, ClientInfo newClientInfo)
         {
             ClientInfo adminclient = ClientThreadManager.GetClient("ADMIN");

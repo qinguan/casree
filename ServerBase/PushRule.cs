@@ -28,7 +28,7 @@ namespace ServerBase
             
             XmlNodeList ruleNodes = doc.SelectNodes("rules/rule");
             int ruleNumber = ruleNodes.Count;
-            Console.WriteLine(ruleNumber);
+
             for (int i = 0; i < ruleNumber; i++)
             {
                 ArrayList dst = new ArrayList();

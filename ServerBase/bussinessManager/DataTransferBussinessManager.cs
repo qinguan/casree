@@ -83,8 +83,6 @@ namespace ServerBase
                     out_message.MessageFlag = Message.MessageFlagHeader.FileBegin;
                     dataStream.Write(out_message.ToBytes(), 0, out_message.MessageLength);
 
-
-
                     //下面传送文件内容
                     string line = string.Empty;
                     int packetNum = 1;
