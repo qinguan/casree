@@ -12,7 +12,7 @@ namespace ServerBase
     public class Reminder
     {
         PushRuleInfo pri = new PushRuleInfo();
-        String confFile = Application.StartupPath + "\\PushRules.xml";
+        String confFile = Application.StartupPath + "\\conf\\PushRules.xml";
 
         public String ConfFile
         {

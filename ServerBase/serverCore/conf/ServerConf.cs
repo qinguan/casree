@@ -13,6 +13,7 @@ namespace ServerBase
 {
     public class ServerConf
     {
+
         public static void ReloadRule(ServerConfInfo sci, String configurationFile)
         {
             sci = new ServerConfInfo();
@@ -22,7 +23,14 @@ namespace ServerBase
         public static void ParseServerConf(ServerConfInfo sci,String configurationFile)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(configurationFile);
+            if (configurationFile.Equals(String.Empty))
+            {
+                doc.Load(sci.RootDirectory);
+            }
+            else
+            {
+                doc.Load(configurationFile);
+            }
 
             XmlNode rootDirectory = doc.SelectSingleNode("rootDirectory");
             if (!rootDirectory.Equals(null))

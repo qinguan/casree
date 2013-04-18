@@ -9,7 +9,7 @@ namespace ServerBase
 {
     class ServerConfInfo
     {
-        private String confPath = Application.StartupPath + "\\server.conf";
+        private String confPath = Application.StartupPath + "\\conf\\server.conf";
         private String rootDirectory = Application.StartupPath + "\\CASREE";
         
         public String ConfPath

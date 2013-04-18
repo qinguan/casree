@@ -12,7 +12,13 @@ namespace ServerBase
 {
     class ServerManager
     {
-        ClientThreadManager clientManager;
+        public ClientThreadManager clientManager;
+        public static ServerConfInfo serverConfInfo = new ServerConfInfo();
+
+        public void ServerInit(String configurationFile = null)
+        {
+            ServerConf.ParseServerConf(serverConfInfo, configurationFile);
+        }
   
         public void ServerStart(IPAddress ip, int port)
         {

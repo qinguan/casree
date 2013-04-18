@@ -32,7 +32,7 @@ namespace ServerBase
             projectName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1];
 
             //默认在当前目录下搜索项目及工程文件夹
-            solutionProjectDirectory = solutionName + "\\" + projectName;
+            solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory + "\\" + solutionName + "\\" + projectName;
 
 
             //还需要添加权限判断
@@ -65,7 +65,7 @@ namespace ServerBase
         {
 
             //暂定于当前程序运行主目录下 待改
-            string fileName = "SolutionProjectList";
+            string fileName = ServerManager.serverConfInfo.RootDirectory + "\\SolutionProjectList";
 
             //打开本地文件，读取内容，分行写到message中,连续发送
             //第一个数据包消息体：文件名
@@ -132,7 +132,7 @@ namespace ServerBase
         /// <returns></returns>
         public static Boolean SendXml(NetworkStream dataStream, string solutionName, string projectName)
         {
-            string solutionProjectDirectory = solutionName+"\\"+projectName;
+            string solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory + "\\" + solutionName + "\\" + projectName;
             string fileName = string.Empty;           
             
             //找一个xml描述文件，暂定为GetFiles函数的第一个文件,有待于数据库协作判断，待加
@@ -240,7 +240,7 @@ namespace ServerBase
             Message out_message;
             string solutionName = string.Empty;
             string projectName = string.Empty;
-            string solutionProjectDirectory = string.Empty;
+            string solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory;
             //格式@主目录\\子目录\\工程描述文件
             string projectNameAddTimestampWithRelativePath = string.Empty;
 
@@ -254,7 +254,7 @@ namespace ServerBase
                         projectName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1];
 
                         //项目工程文件夹
-                        solutionProjectDirectory = solutionName + "\\" + projectName;
+                        solutionProjectDirectory += "\\" + solutionName + "\\" + projectName;
 
                         //判断当前目录下是否存在该项目及工程文件夹
                         if (!Directory.Exists(solutionProjectDirectory))
@@ -330,7 +330,7 @@ namespace ServerBase
             solutionName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[0];
             projectName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1];
             documentName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[2];
-            solutionProjectDirectory = solutionName + "\\" + projectName;
+            solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory + "\\" + solutionName + "\\" + projectName;
             //默认在当前目录下搜索项目工程xml描述文件
 
             //还需要添加权限
@@ -364,7 +364,7 @@ namespace ServerBase
         public static Boolean SendDocument(NetworkStream dataStream, string solutionName, string projectName)
         {
 
-            string solutionProjectDirectory = solutionName + "\\" + projectName;
+            string solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory + "\\" + solutionName + "\\" + projectName;
             if (!Directory.Exists(solutionProjectDirectory))
             {
                 return false;
@@ -388,7 +388,7 @@ namespace ServerBase
         /// <param name="documentName"></param>
         public static Boolean SendDocument(NetworkStream dataStream, string solutionName, string projectName, string documentName)
         {
-            string solutionProjectDirectory = solutionName + "\\" + projectName;
+            string solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory + "\\" + solutionName + "\\" + projectName;
             string filenameWithRelativePath = solutionProjectDirectory + "\\" + documentName;
 
             try
@@ -509,6 +509,7 @@ namespace ServerBase
                 string documentName = string.Empty;
                 string documentNameAddTimestampWithRelativePath = string.Empty;
 
+                string solutionProjectDirectory = ServerManager.serverConfInfo.RootDirectory + "\\" + solutionName + "\\" + projectName;
                 do
                 {
                     in_message = Message.Parse(dataStream);
@@ -520,14 +521,14 @@ namespace ServerBase
                             documentName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[2];
 
                             //判断当前目录下是否存在该项目及工程文件夹
-                            if (!Directory.Exists(solutionName + "\\" + projectName))
+                            if (!Directory.Exists(solutionProjectDirectory))
                             {
                                 //在当前路径下创建项目文件夹                           
-                                Directory.CreateDirectory(solutionName + "\\" + projectName);
+                                Directory.CreateDirectory(solutionProjectDirectory);
                             }
                             //生成时间戳 格式：__2011_12_2_19_48_37
                             string timestamp = "__" + DateTime.Now.ToString().Replace(':', '_').Replace(' ', '_').Replace('/', '_');
-                            documentNameAddTimestampWithRelativePath = solutionName + "\\" + projectName + "\\" + documentName + timestamp;
+                            documentNameAddTimestampWithRelativePath = solutionProjectDirectory + "\\" + documentName + timestamp;
 
                             if (!File.Exists(documentNameAddTimestampWithRelativePath))
                             {
