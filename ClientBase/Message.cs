@@ -40,7 +40,28 @@ namespace ClientBase
             Hello,//服务器判断客户端isAlive
             Offline,//正常下线
 
-            Chat//供测试
+            Chat,//供测试
+
+            PushXML,
+            PushXMLAck,
+
+            ReminderAutoPush,
+            ReminderAutoPushAck,
+
+            //revised by liluyi on Oct 12,2012
+            AddUser,//添加用户
+            DeleteUser,//删除用户
+            SearchUser,//搜索用户
+            AddPermission, //添加权限
+            DeletePermission, //删除权限
+            SearchPermission, //根据用户名搜索权限
+            SearchSolution, //搜索项目下全部工程及工具类型以及在线状态
+
+
+            //revised by yq on Nov 6,2012
+            AddProject,
+            SearchProject,
+            DeleteProject,
         }
 
         //文件信息标志，表示数据包状态//文件件待考虑
@@ -112,27 +133,30 @@ namespace ClientBase
                 message.MessageLength = BitConverter.ToInt32(buffer, 0);
             }
 
-            buffer = new byte[message.MessageLength - 4];
-
-            //读出消息的其它字节
-            if (ReadMessagePartial(connection, buffer, message.MessageLength - 4))
+            if (message.MessageLength > 3)
             {
-                //读出一个字节的文件信息标志
-                message.MessageFlag = (MessageFlagHeader)buffer[0];
+                buffer = new byte[message.MessageLength - 4];
 
-                //读出数据包序号,4个字节
-                message.FilePacketNumber = BitConverter.ToInt32(buffer, 1);
-
-                //读出命令
-                message.Command = (CommandHeader)buffer[5];
-
-                //读出消息体
-                int i = 0;
-                message.MessageBody = new byte[message.MessageLength - 10];
-                while (i < message.MessageLength - 10)
+                //读出消息的其它字节
+                if (ReadMessagePartial(connection, buffer, message.MessageLength - 4))
                 {
-                    message.MessageBody[i] = buffer[6 + i];
-                    i++;
+                    //读出一个字节的文件信息标志
+                    message.MessageFlag = (MessageFlagHeader)buffer[0];
+
+                    //读出数据包序号,4个字节
+                    message.FilePacketNumber = BitConverter.ToInt32(buffer, 1);
+
+                    //读出命令
+                    message.Command = (CommandHeader)buffer[5];
+
+                    //读出消息体
+                    int i = 0;
+                    message.MessageBody = new byte[message.MessageLength - 10];
+                    while (i < message.MessageLength - 10)
+                    {
+                        message.MessageBody[i] = buffer[6 + i];
+                        i++;
+                    }
                 }
             }
             return message;

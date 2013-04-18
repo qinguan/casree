@@ -44,6 +44,10 @@ namespace ServerBase
 
             PushXML,
             PushXMLAck,
+
+            ReminderAutoPush,
+            ReminderAutoPushAck,
+
             //revised by liluyi on Oct 12,2012
             AddUser,//添加用户
             DeleteUser,//删除用户

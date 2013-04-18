@@ -21,8 +21,10 @@ namespace ServerBase
 
         public static readonly String M_DENY_PW = "deny_pw";
 
+        public static readonly String P_SRAT = "srat";
         public static readonly String P_FMEA = "fmea";
         public static readonly String P_FTA = "fta";
+        public static readonly String P_SRET = "sret";
         
     }
 }

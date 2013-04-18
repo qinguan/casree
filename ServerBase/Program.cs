@@ -17,8 +17,8 @@ namespace ServerBase
         {
             //ServerManager sm = new ServerManager();
             //sm.ServerStart(new IPAddress(new byte[] { 127, 0, 0, 1 }), 8500);
-            Console.WriteLine(Database.queryProgramIdByProjectId("1"));
-            
+            //Console.WriteLine(Database.queryProgramIdByProjectId("1"));
+            PushRule.ParseConf("PushRules.xml");
             //sm.ServerStart(new IPAddress(new byte[] { 192, 168, 241, 48 }), 8860);
 
 

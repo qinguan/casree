@@ -56,6 +56,7 @@
     <Compile Include="bussinessManager\DataTransferBussinessManager.cs" />
     <Compile Include="bussinessManager\ProjectBussinessManager.cs" />
     <Compile Include="bussinessManager\PushBussinessManager.cs" />
+    <Compile Include="PushConf.cs" />
     <Compile Include="serverCore\Reminder.cs" />
     <Compile Include="serverCore\ClientBusinessManager.cs" />
     <Compile Include="serverCore\ClientInfo.cs" />
