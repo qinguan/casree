@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
+    <Compile Include="serverCore\conf\ServerConfInfo.cs" />
+    <Compile Include="serverCore\Constants.cs" />
     <Compile Include="database\CASREE_Database.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -56,13 +57,13 @@
     <Compile Include="bussinessManager\DataTransferBussinessManager.cs" />
     <Compile Include="bussinessManager\ProjectBussinessManager.cs" />
     <Compile Include="bussinessManager\PushBussinessManager.cs" />
-    <Compile Include="PushRule.cs" />
-    <Compile Include="PushRuleInfo.cs" />
-    <Compile Include="ServerConf.cs" />
-    <Compile Include="serverCore\Reminder.cs" />
-    <Compile Include="serverCore\ClientBusinessManager.cs" />
-    <Compile Include="serverCore\ClientInfo.cs" />
-    <Compile Include="serverCore\ClientThreadManager.cs" />
+    <Compile Include="serverCore\reminder\PushRule.cs" />
+    <Compile Include="serverCore\reminder\PushRuleInfo.cs" />
+    <Compile Include="serverCore\conf\ServerConf.cs" />
+    <Compile Include="serverCore\reminder\Reminder.cs" />
+    <Compile Include="serverCore\client\ClientBusinessManager.cs" />
+    <Compile Include="serverCore\client\ClientInfo.cs" />
+    <Compile Include="serverCore\client\ClientThreadManager.cs" />
     <Compile Include="database\Database.cs" />
     <Compile Include="database\User.cs" />
     <Compile Include="Helper.cs" />
