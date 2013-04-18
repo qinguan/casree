@@ -15,11 +15,16 @@ namespace ServerBase
         public ClientThreadManager clientManager;
         public static ServerConfInfo serverConfInfo = new ServerConfInfo();
 
-        public void ServerInit(String configurationFile = null)
+        public ServerManager() 
+        {
+            ServerConf.ParseServerConf(serverConfInfo,null);
+        }
+
+        public ServerManager(String configurationFile = null)
         {
             ServerConf.ParseServerConf(serverConfInfo, configurationFile);
         }
-  
+
         public void ServerStart(IPAddress ip, int port)
         {
             Console.WriteLine("Server is running ... ");
