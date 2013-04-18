@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Threading;
 
 using ServerBase.database;
+using System.Windows.Forms;
 
 namespace ServerBase
 {
@@ -18,7 +19,7 @@ namespace ServerBase
             //ServerManager sm = new ServerManager();
             //sm.ServerStart(new IPAddress(new byte[] { 127, 0, 0, 1 }), 8500);
             //Console.WriteLine(Database.queryProgramIdByProjectId("1"));
-            PushRule.ParseConf("PushRules.xml");
+            Console.WriteLine(Application.StartupPath + "\\CASREE");
             //sm.ServerStart(new IPAddress(new byte[] { 192, 168, 241, 48 }), 8860);
 
 

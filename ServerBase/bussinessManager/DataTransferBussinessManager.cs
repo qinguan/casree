@@ -132,26 +132,9 @@ namespace ServerBase
         /// <returns></returns>
         public static Boolean SendXml(NetworkStream dataStream, string solutionName, string projectName)
         {
-            //string solutionProjectDirectory = solutionName+"\\"+projectName;
-            string fileName = string.Empty;
-            Projectinfo sourceproject = Database.queryProjectInfo(projectName, solutionName);
-            string destinationprojectype = string.Empty;
-            switch (sourceproject.projectType)
-            {
-                case "fta":
-                    {
-                        destinationprojectype = Constants.P_FMEA;
-                        break;
-                    }
-                case "fmea":
-                    {
-                        destinationprojectype = Constants.P_FTA;
-                        break;
-                    }
-            }
-            //获取数据库中同一项目下对应类型的工程
-            Projectinfo project = Database.queryProjectByType(solutionName, destinationprojectype);
-            string solutionProjectDirectory = solutionName + "\\" + project.projectID;
+            string solutionProjectDirectory = solutionName+"\\"+projectName;
+            string fileName = string.Empty;           
+            
             //找一个xml描述文件，暂定为GetFiles函数的第一个文件,有待于数据库协作判断，待加
             //foreach (var file in Directory.GetFiles(solutionProjectDirectory))
             //{ 

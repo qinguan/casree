@@ -58,6 +58,7 @@
     <Compile Include="bussinessManager\PushBussinessManager.cs" />
     <Compile Include="PushRule.cs" />
     <Compile Include="PushRuleInfo.cs" />
+    <Compile Include="ServerConf.cs" />
     <Compile Include="serverCore\Reminder.cs" />
     <Compile Include="serverCore\ClientBusinessManager.cs" />
     <Compile Include="serverCore\ClientInfo.cs" />
