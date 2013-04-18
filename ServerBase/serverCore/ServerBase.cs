@@ -110,7 +110,15 @@ namespace ServerBase
                                 if (DataTransferBussinessManager.GetXml(dataStream))
                                 {
                                     Console.WriteLine("接受文件完成");
-                                   
+
+                                    //推送更新消息
+                                    Reminder reminder = new Reminder();
+                                    String solutionName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[0];
+                                    String projectName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1];
+                                    String ReminderMessage = reminder.GenerateReminderMessage(solutionName,projectName);
+                                    reminder.ReminderClient(projectName, ReminderMessage);
+
+
                                 }
                             }
                             break;
@@ -133,6 +141,14 @@ namespace ServerBase
                                 if (DataTransferBussinessManager.GetDocument(dataStream))
                                 {
                                     Console.WriteLine("成功接受文档");
+
+                                    //推送更新消息
+                                    Reminder reminder = new Reminder();
+                                    String solutionName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[0];
+                                    String projectName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[1];
+                                    String documentName = Encoding.Unicode.GetString(in_message.MessageBody).Split(':')[2];
+                                    reminder.ReminderClient(projectName, solutionName+":"+projectName+":"+documentName);
+
                                 }
                             }
                             break;
