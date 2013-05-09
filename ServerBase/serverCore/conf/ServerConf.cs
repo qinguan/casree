@@ -11,7 +11,7 @@ using System.IO;
 
 namespace ServerBase
 {
-    public class ServerConf
+    class ServerConf
     {
 
         public static void ReloadRule(ServerConfInfo sci, String configurationFile)
@@ -23,9 +23,9 @@ namespace ServerBase
         public static void ParseServerConf(ServerConfInfo sci,String configurationFile)
         {
             XmlDocument doc = new XmlDocument();
-            if (configurationFile.Equals(String.Empty))
+            if (configurationFile == null || configurationFile.Equals(String.Empty))
             {
-                doc.Load(sci.RootDirectory);
+                doc.Load(sci.ConfPath);
             }
             else
             {
